@@ -859,6 +859,9 @@ static int const RCTVideoUnset = -1;
 
 - (void)setPaused:(BOOL)paused
 {
+  // HACK: Ignore silent switch always since this library is broken
+  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+
   if (paused) {
     [_player pause];
     [_player setRate:0.0];
